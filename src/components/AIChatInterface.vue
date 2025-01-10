@@ -28,13 +28,13 @@
 
     <div class="chat-input">
       <input 
+        ref="inputField"
         type="text" 
         v-model="userInput" 
         @keyup.enter="sendMessage"
         placeholder="输入您的问题..."
-        :disabled="isLoading"
       >
-      <button @click="sendMessage" :disabled="isLoading">
+      <button @click="sendMessage" :disabled="isLoading || !userInput.trim()">
         <span class="send-icon">↑</span>
       </button>
     </div>
@@ -105,6 +105,7 @@ export default {
         this.isLoading = false;
         this.$nextTick(() => {
           this.scrollToBottom();
+          this.$refs.inputField.focus();
         });
       }
     },
